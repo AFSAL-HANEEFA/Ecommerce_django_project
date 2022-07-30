@@ -1,0 +1,57 @@
+{% extends 'user/base.html' %}
+{% block title %} My Order {% endblock title %}
+{% block content %}
+
+<div class="container-fluid p-0 p-md-5 ">
+    <div class="row row shadow p-3 mb-5 bg-body rounded">
+        <div class="col-12">
+            <h4>ORDERD ITEMS</h4>
+
+            {% for order in orders %}
+            <hr>
+            <div class="container-fluid">
+                <div class="row d-flex ">
+
+                    <div class="col-2 col-md-2">
+                        <img src="{{ order.image.url}}" width="100%" alt="Product image">
+                    </div>
+                    <div class="col-12 col-md-6 px-md-3">
+                        <a href="{% url 'products:product_details' order.product_id %}">
+                            <h3>{{order.product}}</h3>
+                        </a>
+                        <h6 class="text-primary">
+                            ₹{{order.product_selling_price | stringformat:'d'}} x {{order.qty}}
+                        </h6>
+
+                        {% if order.coupon %}
+                        <h4 class="text-success">₹{{order.total_amount | stringformat:'d'}}</h4>
+                        <p class="text-success">Coupon apllied: ₹{{order.coupon}}</p>
+                        {% else %}
+                        <h4 class="text-success">
+
+
+                            ₹{{order.total_amount | stringformat:'d'}}
+                        </h4>
+                        {% endif %}
+
+                        <h6 class="text-secondary">Tracking ID: {{order.tracking_id}}</h6>
+                        <p>Orderd at : {{order.created_at}}</p>
+                    </div>
+                    <div class="col-12 col-md-4 ">
+                        <p class="text-muted fs-4">Status : <span class="text-capitalize rounded fw-bold
+                                text-{% if order.status == 'success' %}warning 
+                                text-{% elif order.status == 'shipped' %}primary 
+                                text-{% elif order.status == 'out_of_selivery' %}info 
+                                text-{% elif order.status == 'deliverd' %}success 
+                                text-{% elif order.status == 'cancelled' %}danger {%endif%}">{{order.status}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

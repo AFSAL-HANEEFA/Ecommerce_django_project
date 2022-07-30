@@ -1,0 +1,73 @@
+{% extends 'user/base.html' %} {% load static %}
+{% block title %} Product List {% endblock title %}
+{% block content %}
+
+<div class="container-fluid my-2 p-0">
+  <div class="p-lg-5 container-fluid bg_white">
+
+    {%for product in products %}
+    <a href="{% url 'products:product_details' product.id %}" class="text-dark m-3">
+      <div class="row ">
+        <div class="col-lg-2 col-4 ">
+          <img src="{{product.image1.url}}" class="product_list_image" alt="" />
+        </div>
+        <div class="d-lg-none col-8 px-3">
+          <h3 class=''>{{product.name}}</h3>
+          <h5 class="text-primary ">₹{{product.selling_price | stringformat:'d' }}</h5>
+          <h6 class="text-secondary text-decoration-line-through">₹{{product.marking_price }}</h6>
+          <h6 class="text-success">{{product.discount}}% off</h6>
+        </div>
+        <div class="col-lg-7 col-sm-12 d-none d-lg-block px-5">
+          {% if product.title %}<h3 class=""> {{product.title}} </h3>{% endif %}
+          {% if product.os %}<p class=""> {{product.os}} </p>{% endif %}
+          {% if product.display %}<p class=""> {{product.display}} </p>{% endif %}
+          {% if product.processor %}<p class=""> {{product.processor}} </p>{% endif %}
+          {% if product.RAM %}<p class=""> {{product.RAM}} RAM </p>{% endif %}
+          {% if product.ROM %}<p class=""> {{product.ROM}} ROM </p>{% endif %}
+          {% if product.spec1 %}<p class=""> {{product.spec1}} </p>{% endif %}
+          {% if product.spec2 %}<p class=""> {{product.spec2}} </p>{% endif %}
+          {% if product.spec3 %}<p class=""> {{product.spec3}} </p>{% endif %}
+          {% if product.spec4 %}<p class=""> {{product.spec4}} </p>{% endif %}
+        </div>
+        <div class="col-lg-3 col-sm-8 d-none d-lg-block px-3">
+          <h4 class="text-primary">₹{{product.selling_price }}</h4>
+          <h6 class="text-secondary text-decoration-line-through">₹{{product.marking_price }}</h6>
+          <h6 class="text-success">{{product.discount}}% off</h6>
+        </div>
+        <!-- ==============mobile view===================== -->
+        <div class="col-12 ps-3 d-lg-none">
+          <div class="spec">
+
+            {% if product.os %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.os}} </span>
+            {%endif %}
+            {% if product.display %} <span class="text-start text-secondary fw-bold btn btn-sm  m-1">
+              {{product.display}} </span>{% endif %}
+            {% if product.processor %} <span class="text-start text-secondary fw-bold btn btn-sm  m-1">
+              {{product.processor}}
+              {% endif%}</span>
+            {% if product.RAM %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.RAM}} RAM
+            </span>{% endif %}
+            {% if product.ROM %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.ROM}} ROM
+            </span>{% endif %}
+            {% if product.spec1 %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.spec1}}
+            </span>{% endif %}
+            {% if product.spec2 %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.spec2}}
+            </span>{% endif %}
+            {% if product.spec3 %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.spec3}}
+            </span>{% endif %}
+            {% if product.spec4 %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.spec4}}
+            </span>{% endif %}
+            {% if product.camera %}<span class="text-start text-secondary fw-bold btn btn-sm  m-1"> {{product.camera}}
+            </span>{% endif %}
+
+          </div>
+        </div>
+      </div>
+    </a>
+    <hr />
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock content %}

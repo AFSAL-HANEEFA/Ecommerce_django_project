@@ -1,0 +1,35 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Category details {% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Category Details</h4>
+                <div class="row">
+                    <div class="col-lg-4 ">
+                        <div class=" p-lg-3 prod_img_container shadow bg-body rounded">
+                            <img data-big-image="{{category.image.url}}" id="category_img_id"
+                                class="prod_det_img tiksluszoom p-3 " src="{{category.image.url}}" alt=""
+                                width="100%" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 p-lg-5 mb-5 bg_white">
+                        <div class="p-2">
+                            <h3 class="d-inline text-capitalize">{{category.category}}</h3>
+                            {% if category.offfer %}
+                            <span class="category_tag">{{category.offfer}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

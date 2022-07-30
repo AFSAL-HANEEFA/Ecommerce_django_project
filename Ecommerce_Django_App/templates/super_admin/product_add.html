@@ -1,0 +1,42 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% load crispy_forms_filters %}
+{% block css%}
+<style>
+    .form-group {
+        width: 50%;
+        padding: 20px;
+        float: left;
+    }
+</style>
+{% endblock %}
+{% block title %} Product add {% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Product Details Form</h4>
+                <div class="row">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            {% csrf_token %}
+                            {{form | crispy}}
+                        </div>
+
+                        <div class="row">
+                            <input class="btn btn-success d-block w-25 m-auto" type="submit" value="SAVE">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

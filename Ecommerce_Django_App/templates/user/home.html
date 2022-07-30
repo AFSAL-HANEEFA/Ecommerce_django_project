@@ -1,0 +1,91 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock title %}
+{% block content %}
+
+<!-- ================slider=====================  -->
+
+<header>
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators .text-muted">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+        aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active carousel1">
+        <div class="carousel-caption d-none d-md-block">
+          <h5></h5>
+          <p></p>
+        </div>
+      </div>
+      <div class="carousel-item carousel2">
+        <div class="carousel-caption d-none d-md-block">
+          <h5></h5>
+          <h3>Light. Bright. Full of might</h3>
+        </div>
+      </div>
+      <div class="carousel-item carousel3">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>You’ve never heard colour like this.</h5>
+          <p>Made to fill every room with rich, 360‑degree audio. Now available in five colours.</p>
+        </div>
+      </div>
+      <div class="carousel-item carousel4">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Oh.So.Pro</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="text-secondary fs-1">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      </span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="text-secondary fs-1">
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+      </span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</header>
+
+<!-- ====================category================ -->
+
+<div class="container p-lg-5">
+  <div class="row products_category">
+    {% for category in categories %}
+    <div class="col-lg-2 col-4 mt-3">
+      <a href="{% url 'products:product_list' category.category %}">
+        <img class="items" src="{{category.image.url}}" alt="" w-100 />
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ========== home images =========== -->
+<div class="home_products">
+  {% for product in products_in_home %}
+  {% if product.home_img %}
+  <div class="row pt-5">
+    <div class="col-12 text-center">
+      <a href="{% url 'products:product_details' product.id %}" class="">
+        <img src="{{product.home_img.url}}" class="home_img rounded-pill" style="max-width: 100%;">
+      </a>
+    </div>
+  </div>
+
+  {% endif %}
+  {% endfor %}
+</div>
+
+{% endblock %}

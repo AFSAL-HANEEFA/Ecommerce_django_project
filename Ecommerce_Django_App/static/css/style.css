@@ -1,0 +1,261 @@
+/* ===============alertify===================== */
+
+.ajs-custom {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #31708f;
+}
+
+
+/* ======================common class========================== */
+
+.row {
+  --bs-gutter-x: 0;
+}
+
+.nav_position {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav_color {
+  background-color: #000;
+}
+
+.bg_white {
+  background-color: #fff;
+}
+
+/* body {
+  background-color: #c9cbd5;
+  background-image: linear-gradient(43deg, #c9cbd5 0%, #e1a9dd 46%, #edcd94 100%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  
+} */
+
+a {
+  text-decoration: none;
+}
+
+
+.button {
+  width: 42px;
+  height: 42px;
+  border: solid rgb(13, 125, 199);
+  border-radius: 50%;
+  text-align: center;
+  background-color: #fff;
+}
+
+.products_category {
+  display: flex;
+  justify-content: space-around;
+  /* background-color: rgba(3, 3, 3, 0.315); */
+  /* background-color: rgb(52 51 66 / 84%); */
+}
+
+.items {
+  width: 150px;
+  height: 150px;
+  border: solid;
+  color: rgb(238, 183, 4);
+
+  border-radius: 50%;
+  z-index: 10;
+}
+
+
+
+.item_icon {
+  font-size: 45px;
+}
+
+/* a {
+    font-size: 16px;
+    font-weight: bold;
+  } */
+
+.sort a {
+  padding: 10px;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.product_list_image {
+  /* height: 200px; */
+  width: 100%;
+  background-size: cover;
+}
+
+.prod_det_img {
+  background-position: center;
+  width: 100%;
+  /* height: 400px; */
+}
+
+.carousel1 {
+  height: 400px;
+  background-image: url(../images/slider1.jpg),
+    linear-gradient(93deg,
+      rgba(224, 175, 204, 1) 0%,
+      rgba(117, 48, 225, 1) 100%);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.carousel2 {
+  height: 400px;
+  background-image: url(../images/slider2.jpg),
+    linear-gradient(90deg,
+      rgba(63, 195, 210, 1) 4%,
+      rgba(226, 124, 180, 1) 15%,
+      rgba(181, 1, 1, 1) 83%,
+      rgba(252, 176, 69, 1) 98%);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.carousel3 {
+  height: 400px;
+  background-image: url(../images/slider3.jpg);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.carousel4 {
+  height: 400px;
+  background-image: url(../images/slider4.jpg);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+}
+
+.home_products {
+  /* background-color: #8EC5FC; */
+  background-image: url(../images/home-bg.jpg);
+  background-position: center;
+  background-image: no-repeat;
+  background-size: cover;
+
+}
+
+.product_tag {
+  background-color: red;
+  color: #fff;
+  font-weight: bold;
+
+  text-transform: uppercase;
+}
+
+.cart_prod_detail {
+  padding-left: 100px;
+}
+
+.qty_cart {
+  width: 200px;
+  height: 50px;
+}
+
+.pin_form {
+  width: 100%;
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}
+
+
+@media(min-width:768px) {
+  .home_img {
+    height: 100vh;
+  }
+}
+
+
+
+
+
+/* ==============mobile responsive============== */
+
+@media(max-width: 767px) {
+
+  .btn {
+    border-radius: 0;
+  }
+
+  .home_img {
+    height: auto;
+    width: auto;
+
+  }
+
+  .items {
+    width: 100px;
+    height: 100px;
+  }
+
+  .place_order {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .payment_btn {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+  }
+
+  .add_buy_container {
+    position: fixed;
+    bottom: 0;
+    display: block;
+  }
+
+  .button {
+    width: 30px;
+    height: 30px;
+    border: solid rgb(13, 125, 199);
+    border-radius: 50%;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  .spec span {
+    color: #30222f;
+    font-size: medium;
+
+  }
+
+  .accordion-body {
+    padding: 0;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .carousel-item {
+    height: 200px
+  }
+
+  .address_form {
+    width: 90%;
+  }
+}

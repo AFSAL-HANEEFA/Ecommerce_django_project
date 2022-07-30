@@ -1,0 +1,95 @@
+{% load static %}
+<nav class=" nav_position navbar navbar-expand-lg navbar-dark nav_color py-lg-0">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-solid fa-apple-whole"></i>&nbspshop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <form action="{% url 'products:product_list' 'search' %}"
+      class="search d-flex align-items-center m-auto ms-lg-5 mt-3 mb-lg-3">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_input" />
+      <button class="btn btn-outline-warning" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul
+        class="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase fw-bold d-flex flex-sm-column align-items-center flex-lg-row">
+        <li class="nav-item dropdown p-0">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-dark">Product</button>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark pe-2" aria-labelledby="navbarDropdown">
+            <li><a href="{% url 'products:product_list' 'mac' %}" class="dropdown-item">Mac</a></li>
+            <li><a href="{% url 'products:product_list' 'ipad' %}" class="dropdown-item">iPad</a></li>
+            <li><a href="{% url 'products:product_list' 'iphone' %}" class="dropdown-item">iPhone</a></li>
+            <li><a href="{% url 'products:product_list' 'watch' %}" class="dropdown-item">Watch</a></li>
+            <li><a href="{% url 'products:product_list' 'airpods' %}" class="dropdown-item">AirPods</a></li>
+            <li><a href="{% url 'products:product_list' 'homepod' %}" class="dropdown-item">HomePod</a></li>
+          </ul>
+        </li>
+        {% if request.user.is_authenticated %}
+
+        <li class="nav-item pe-2">
+          <a class="nav-link text-white" href="{% url 'cart:cart' %}">
+
+            <button type="button" class=" btn btn-dark position-relative">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <div class="cart_num">{{request.user.cart_number}}</div>
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+
+          </a>
+        </li>
+        <li>
+
+          <div class="btn-group ">
+            <a class="text-reset text-decoration-none" href="{% url 'profiles:customer_profile' %}"><button
+                type="button" class="btn btn-dark text-capitalize">{{request.user.username}} <img
+                  class="img-xs rounded-circle" src="{{request.user.profile_pic.url}}" width="30px" height="30px"
+                  alt="">
+              </button></a>
+            <button type="button" class="btn btn-outline-warning dropdown-toggle dropdown-toggle-split"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark ">
+              <li><a class="text-light dropdown-item " href="{% url 'profiles:customer_profile' %}">Profile</a></li>
+              <li><a class="dropdown-item text-light" href="{% url 'orders:your_order' %}">My Order</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-light" href="{% url 'account:logout' %}">Logout</a></li>
+            </ul>
+          </div>
+        </li>
+
+
+
+        {% else %}
+        <li>
+          <div class="btn-group">
+            <a href="{% url 'account:login' %}" class="text-reset text-decoration-none"> <button type="button"
+                class="btn btn-warning">LOGIN </button></a>
+            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'account:create_account' %}">Create Account</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{% url 'password_reset' %}">Forgot Password</a></li>
+            </ul>
+          </div>
+        </li>
+        {% endif %}
+
+
+      </ul>
+    </div>
+  </div>
+</nav>

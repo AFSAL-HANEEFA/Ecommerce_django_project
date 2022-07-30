@@ -1,0 +1,87 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Coupon list {% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">coupon List</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Coupon Name </th>
+                                <th> Coupon Code </th>
+                                <th> Discount (Rs) </th>
+                                <th> Redeem</th>
+                                <th> Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for coupon in coupons %}
+                            <tr>
+
+                                <td> {{coupon.coupon_name}} </td>
+                                <td> {{coupon.coupon_code}} </td>
+                                <td> {{coupon.discount}} </td>
+                                <td>
+                                    {% if coupon.is_redeemed %}
+                                    <div class="text-danger">Redeemed</div>
+                                    {% else %}
+                                    <div class="text-success">Not Redeemed</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if coupon.is_active %}
+                                    <div class="text-success">Active</div>
+                                    {% else %}
+                                    <div class="text-danger">Not Active</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a a href="{% url 'super_admin:coupon_edit' coupon.id %}"><i
+                                            class="fa-solid fa-pen-to-square"></i></a>
+                                </td>
+                                <td>
+
+                                    <!-- Button trigger modal -->
+                                    <div type="button" class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete coupon</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete the selected coupon?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <a href="{% url 'super_admin:coupon_delete' coupon.id %}"
+                                                        type="button" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

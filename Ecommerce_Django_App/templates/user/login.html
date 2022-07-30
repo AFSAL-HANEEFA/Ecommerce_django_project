@@ -1,0 +1,46 @@
+{% extends 'user/base.html' %}
+{% block title %} Login {% endblock title %}
+{% block content %}
+
+<div class="container my-lg-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <div class="shadow p-3 mb-5 bg-body rounded">
+                <h3>Login</h3>
+                <hr>
+
+                {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %} {% endif %}
+
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    {% for form in form %}
+                    <div class="form-group my-4">
+                        {{form}}
+                        <small class="text-danger">{{form.errors|striptags }}</small>
+                    </div>
+                    {% endfor %}
+
+                    <div class="row mt-3">
+                        <div class="col-lg-6 p-lg-3  ">
+                            <button class="btn btn-warning px-5  me-auto fw-bold w-100">LOGIN</button>
+                        </div>
+                        <div class="col-lg-6 p-lg-3 mt-3 mt-lg-0">
+                            <a class="btn btn-primary px-5  fw-bold w-100" href="{% url 'account:send_otp' %}">
+                                SIGNUP
+                            </a>
+                        </div>
+                    </div>
+                    <a class="text-decoration-none" href="{% url 'password_reset' %}">
+                        <p class="text-primary text-center m-3 fw-bold"> Forgot Password ?</p>
+                    </a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

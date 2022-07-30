@@ -1,0 +1,71 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Product details {% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Product Details</h4>
+                <div class="row">
+                    <div class="col-lg-4 ">
+                        <div class=" p-lg-3 prod_img_container shadow bg-body rounded">
+                            <img data-big-image="{{product.image1.url}}" id="product_img_id"
+                                class="prod_det_img tiksluszoom p-3 " src="{{product.image1.url}}" alt=""
+                                width="100%" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 p-lg-5 mb-5 bg_white">
+                        <div class="p-2">
+                            <h3 class="d-inline">{{product.name}}</h3>
+                            {% if product.tag %}
+                            <span class="product_tag">{{product.tag}}</span>
+                            {% endif %}
+                            <h3 class="text-primary mt-3">₹{{product.selling_price | stringformat:'d'}}</h3>
+                            <h6 class="text-secondary text-decoration-line-through">₹{{product.marking_price }}</h6>
+                            <h4 class="text-success">{{discount}}% off</h4>
+                            <h6>Highlights</h6>
+                            <ol>
+                                {% if product.os %}<p> {{product.os}} </p>{% endif %}
+                                {% if product.display %}<p> {{product.display}} </p>{% endif %}
+                                {% if product.processor %}<p> {{product.processor}} </p>{% endif %}
+                                {% if product.RAM %}<p> {{product.RAM}} RAM </p>{% endif %}
+                                {% if product.ROM %}<p> {{product.ROM}} ROM </p>{% endif %}
+                                {% if product.spec1 %}<p> {{product.spec1}} </p>{% endif %}
+                                {% if product.spec2 %}<p> {{product.spec2}} </p>{% endif %}
+                                {% if product.spec3 %}<p> {{product.spec3}} </p>{% endif %}
+                                {% if product.spec4 %}<p> {{product.spec4}} </p>{% endif %}
+                                {% if product.spec5 %}<p> {{product.spec5}} </p>{% endif %}
+                                {% if product.spec6 %}<p> {{product.spec6}} </p>{% endif %}
+                                {% if product.spec7 %}<p> {{product.spec7}} </p>{% endif %}
+                                {% if product.spec8 %}<p> {{product.spec8}} </p>{% endif %}
+                                {% if product.spec9 %}<p> {{product.spec9}} </p>{% endif %}
+                                {% if product.spec10 %}<p> {{product.spec10}} </p>{% endif %}
+                                {% if product.spec11 %}<p> {{product.spec11}} </p>{% endif %}
+                                {% if product.spec12 %}<p> {{product.spec12}} </p>{% endif %}
+                                {% if product.spec13 %}<p> {{product.spec13}} </p>{% endif %}
+                                {% if product.spec14 %}<p> {{product.spec14}} </p>{% endif %}
+                                {% if product.spec15 %}<p> {{product.spec15}} </p>{% endif %}
+                            </ol>
+                            {% if product.description %}
+                            <div>
+                                <h6>About this item</h6>
+                                <ul>
+                                    <li>
+                                        {{product.description}}
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

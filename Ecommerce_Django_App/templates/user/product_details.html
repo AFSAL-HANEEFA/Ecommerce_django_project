@@ -1,0 +1,125 @@
+{% extends 'user/base.html' %} {% load static %}
+{% block title %} Product Details {% endblock title %}
+{% block content %}
+{% block link %}
+<script src="https://unpkg.com/js-image-zoom/js-image-zoom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script>
+{% endblock %}
+
+<div class="row">
+  <div class="col-lg-4 p-lg-3">
+    <div class="shadow bg-body rounded p-lg-3">
+      <div id="img-container" class="  prod_img_container">
+        <img data-big-image="{{product.image1.url}}" id="product_img_id" class="prod_det_img tiksluszoom p-3 mb-5"
+          src="{{product.image1.url}}" alt="" />
+      </div>
+      <div class="add_to_cart add_buy_container d-flex w-100">
+
+        {% if product.qty > 0 %}
+        {% csrf_token %}
+        {% if alredy_in_cart and request.user.is_authenticated %}
+        <a href="{% url 'cart:cart' %}" class="btn btn-warning py-2 fs-5 w-100">
+          GO TO CART
+          <span></span>
+        </a>
+
+        {% else %}
+        {% if request.user.is_authenticated %}
+        <a class="add_to_cart_btn btn btn-primary py-2 fs-5 w-100 ">
+          <span class="spinner-border spinner-border-sm me-2 mb-1 fs-3 visually-hidden cart_spinner" role="status"
+            aria-hidden="true"></span>
+          ADD TO CART
+        </a>
+
+        {% else %}
+
+        <a href="{% url 'cart:add_to_cart_brfore_login' product.id %}" class="btn btn-primary py-2 fs-5 w-100">ADD
+          TO
+          CART</a>
+
+        {% endif %}
+        {% endif %}
+
+        <input type="hidden" class="product_id" value="{{product.id}}">
+        <a href="{% url 'orders:single_order' product.id %}"
+          class="buy_now_btn btn btn-success ms-lg-3 fs-5 w-100 py-2">
+          BUY NOW
+        </a>
+
+        {% else %}
+
+        <h4 class="text-danger text-center py-2 fs-5 w-100 bg-light w-100 mb-0">
+          Out of Stock
+        </h4>
+        <a href="{% url 'home' %}" class="add_to_cart buy_now btn btn-light py-2 fs-5 ms-lg-3 w-100">
+          BACK TO HOME
+        </a>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 p-lg-5 mb-5 bg_white">
+    <div class="p-2">
+      <h3 class="d-inline">{{product.title}}</h3>
+
+      {% if product.tag %}
+
+      <span class="product_tag">{{product.tag}}</span>
+
+      {% endif %}
+
+      <h3 class="text-primary mt-3">₹{{product.selling_price | stringformat:'d'}}</h3>
+      <h6 class="text-secondary text-decoration-line-through">₹{{product.marking_price }}</h6>
+      <h4 class="text-success">{{discount}}% off</h4>
+      <h6>Available offers</h6>
+      <ol>
+        <li>
+          Bank Offer₹5000 Instant Discount on HDFC Credit Card, Credit and Debit
+          EMIT&C
+        </li>
+        <li>Bank Offer5% Cashback on Flipkart Axis Bank CardT&C</li>
+        <li>
+          Special PriceGet extra ₹5000 off (price inclusive of discount)T&C
+        </li>
+        <li>FreebieClasses - 3 Class PackT&C</li>
+      </ol>
+      <h6>Highlights</h6>
+      <ol>
+        {% if product.os %}<p> {{product.os}} </p>{% endif %}
+        {% if product.display %}<p> {{product.display}} </p>{% endif %}
+        {% if product.processor %}<p> {{product.processor}} </p>{% endif %}
+        {% if product.RAM %}<p> {{product.RAM}} RAM </p>{% endif %}
+        {% if product.ROM %}<p> {{product.ROM}} ROM </p>{% endif %}
+        {% if product.spec1 %}<p> {{product.spec1}} </p>{% endif %}
+        {% if product.spec2 %}<p> {{product.spec2}} </p>{% endif %}
+        {% if product.spec3 %}<p> {{product.spec3}} </p>{% endif %}
+        {% if product.spec4 %}<p> {{product.spec4}} </p>{% endif %}
+        {% if product.spec5 %}<p> {{product.spec5}} </p>{% endif %}
+        {% if product.spec6 %}<p> {{product.spec6}} </p>{% endif %}
+        {% if product.spec7 %}<p> {{product.spec7}} </p>{% endif %}
+        {% if product.spec8 %}<p> {{product.spec8}} </p>{% endif %}
+        {% if product.spec9 %}<p> {{product.spec9}} </p>{% endif %}
+        {% if product.spec10 %}<p> {{product.spec10}} </p>{% endif %}
+        {% if product.spec11 %}<p> {{product.spec11}} </p>{% endif %}
+        {% if product.spec12 %}<p> {{product.spec12}} </p>{% endif %}
+        {% if product.spec13 %}<p> {{product.spec13}} </p>{% endif %}
+        {% if product.spec14 %}<p> {{product.spec14}} </p>{% endif %}
+        {% if product.spec15 %}<p> {{product.spec15}} </p>{% endif %}
+      </ol>
+      <h6>About this item</h6>
+      <ul>
+        <li>
+          {{product.description}}
+        </li>
+      </ul>
+    </div>
+    <div class="row"></div>
+  </div>
+</div>
+</div>
+
+<script src="{% static 'zoom/js/script.js' %}"></script>
+
+{% endblock content %}

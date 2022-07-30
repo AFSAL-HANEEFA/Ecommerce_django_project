@@ -1,0 +1,20 @@
+# This is sample env file, You need to create an .env file with below variables and
+ corresponding values to run the project.
+
+# Razorpay API credentials
+
+RAZORPAY_API_KEY= 
+
+# Twilio API credentials
+# (find here https://www.twilio.com/console)
+TWILIO_ACCOUNT_SID= 
+TWILIO_AUTH_TOKEN= 
+
+# Verification Service SID
+# (create one here https://www.twilio.com/console/verify/services)
+VERIFICATION_SID= 
+
+# EMAIL_HOST_PASSWORD = 
+EMAIL_HOST_PASSWORD = 
+EMAIL_HOST_USER = 
+

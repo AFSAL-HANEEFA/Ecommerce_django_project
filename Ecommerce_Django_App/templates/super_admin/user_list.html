@@ -1,0 +1,43 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} User list {% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Customer List</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Username </th>
+                                <th> Mobile </th>
+                                <th> Email </th>
+                                <th> Gender </th>
+                                <th> Last Login</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in user %}
+                            <tr>
+                                <td>
+                                    <img src="{{user.profile_pic.url}}" alt="image" />
+                                    <span class="pl-2 text-capitalize">{{user.username}}</span>
+                                </td>
+                                <td> {{user.mobile}} </td>
+                                <td> {{user.email}} </td>
+                                <td> {{user.gender}} </td>
+                                <td> {{user.last_login}} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Order list {% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">order List</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> User </th>
+                                <th> product </th>
+                                <th> Selling Price </th>
+                                <th> Payment </th>
+                                <th> Qty</th>
+                                <th> Coupon (Rs)</th>
+                                <th> Status</th>
+                                <th> Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td> {{order.user}} </td>
+                                <td>
+                                    <a href="{% url 'super_admin:product_details' order.product_id %}">
+                                        <img src="{{order.image.url}}" alt="image" />
+                                        <span class="pl-2 text-capitalize">{{order.product}}</span>
+                                    </a>
+                                </td>
+
+                                <td> {{order.product_selling_price}} </td>
+                                <td> {{order.payment}} </td>
+                                <td> {{order.qty}} </td>
+                                <td> {{order.coupon}} </td>
+                                <td>
+
+                                    <!-- Button trigger modal -->
+                                    <div type="button" class="text-capitalize
+                                    text-{% if order.status == 'success' %}light 
+                                    text-{% elif order.status == 'shipped' %}primary 
+                                    text-{% elif order.status == 'out_of_selivery' %}info 
+                                    text-{% elif order.status == 'deliverd' %}success 
+                                    text-{% elif order.status == 'cancelled' %}danger {%endif%}" data-bs-toggle="modal"
+                                        data-bs-target="#id{{order.id}}">
+                                        {{order.status}}
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="id{{order.id}}" tabindex="-1"
+                                        aria-labelledby="{{order.id}}Label1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="order_id" value="{{order.id}}">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="{{order.id}}Label">Delete order</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <select name="status" required="">
+                                                            <option class="text-capitalize" value="" selected="">
+                                                                {{order.status}}</option>
+
+                                                            <option class="bg-success" value="success">Success</option>
+
+                                                            <option class="bg-primary" value="shipped">Shipped</option>
+
+                                                            <option class="bg-info" value="out of selivery">Out of
+                                                                delivery
+                                                            </option>
+
+                                                            <option class="bg-success" value="deliverd">Deliverd
+                                                            </option>
+
+                                                            <option class="bg-danger" value="cancelled">Cancelled
+                                                            </option>
+
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-ingo">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td> {{order.updated_at}} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

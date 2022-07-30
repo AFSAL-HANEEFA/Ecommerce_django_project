@@ -1,0 +1,83 @@
+<div class="container load_address  ">
+
+    <div class="d-flex flex-column align-items-center pt-4">
+        <div class="shadow p-0 p-md-3 mb-5 bg-body rounded w-100">
+            <h4 class="p-3">Address</h4>
+
+
+            <div class="row address_load">
+                <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                    <div role="button" data-bs-toggle="modal" data-bs-target="#address">
+                        <h1 class="text-success p-3 p-lg-0"><i class="fa-solid fa-circle-plus fs-1"></i></h1>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="address" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="addressLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addressLabel">Address Form</h5>
+                                    <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    {% csrf_token %}
+                                    {{form}}
+                                    <div id="address-footer"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btn-close" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button id="btn-save" class="address_save_btn btn btn-warning">SAVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% for address in addresses %}
+                <div class="col-lg-4 p-2 ">
+                    <div
+                        class="address_closest_cls card  {% if address.default %} shadow p-1 mb-1 bg-body rounded {% endif%}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{address.name}}</h5>
+                            <p class="card-text">{{address.address}}, {{address.pin}}, {{address.mob}}</p>
+                            {% csrf_token %}
+                            <input type="hidden" class="address_id" value="{{address.id}}">
+                            {% if address.default %}
+                            <button class="address_default_btn btn btn-sm btn-success"><i
+                                    class="fa-solid fa-check"></i></button>
+                            {% else %}
+                            <button class="address_default_btn btn btn-sm btn-warning">DEFAULT</button>
+                            {% endif%}
+                            <button data-bs-toggle="modal" data-bs-target="#address"
+                                class="address_edit_btn btn btn-sm btn-secondary my-2 my-lg-0 mx-lg-3"><i
+                                    class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="address_delete_btn btn btn-sm btn-danger"><i
+                                    class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <!-- <div class="address_form address_add address_remove shadow p-3 mb-5 bg-body rounded p-lg-5"
+            style="position: absolute; top: 300px;">
+            <button class="address_close_btn btn btn-danger float-end m-0 p-0" style="width: 40px;">X</button>
+
+            {% csrf_token %}
+            <h4 class="text-warning">Your Addresses</h4>
+            <hr class="text-success">
+
+            {{form}}
+            <button class="address_save_btn btn btn-warning mt-4">SAVE</button>
+
+        </div> -->
+
+
+    </div>
+
+</div>

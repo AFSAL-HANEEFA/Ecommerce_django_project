@@ -1,0 +1,89 @@
+{% extends 'user/base.html' %}
+{% block title %} Cart {% endblock title %}
+{% block content %}
+
+<div class="container p-0 ">
+    <div class="refresh_cart row">
+        <div class=" col-md-8">
+            <div class=" shadow my-lg-3 p-lg-5 bg-body rounded">
+
+                {% if cart %}
+                <div class="container-fluid ">
+
+                    {% for cart in cart %}
+                    <div class="row py-5 position-relative">
+                        <div class="col-4 ">
+                            <img src="{{cart.product.image1.url}}" class="w-100" alt="">
+                        </div>
+                        <div class="closest_cls cart_prod_detail  col-8 p-0 ps-5 ">
+                            <h5>{{cart.product.name}}</h5>
+                            <h4 class="d-inline text-primary">₹{{cart.product.selling_price | stringformat:'d'}}</h4>
+                            <h6 class="text-muted text-decoration-line-through d-inline">
+                                ₹{{cart.product.marking_price | stringformat:'d'}}
+                            </h6>
+                            <h5 class="text-success">Total ₹{{cart.totalPrice | stringformat:'d'}}</h5>
+                            {% csrf_token %}
+                            <div class="qty_cart input-group w-100 d-flex">
+                                <div class="qty_btn d-flex mt-3 w-50">
+                                    <i class="minus_btn cursor_pointer fa-solid fa-circle-minus fs-1 text-danger"></i>
+                                    <div>
+                                        <input disabled class="button qty_input form-control text-center mx-3 p-0"
+                                            id="qty" type="text" name="qty" value="{{cart.qty}}">
+                                    </div>
+                                    <i class="plus_btn cursor_pointer fa-solid fa-circle-plus fs-1 text-success"></i>
+                                    <i
+                                        class="dlt_btn cursor_pointer fa-solid fa-trash fs-1 ms-3 ms-lg-5 text-secondary"></i>
+                                    <input type="hidden" class="product_id" value="{{cart.product.id}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+
+                </div>
+                {% else %}
+
+                <h1 class="text-center text-warning p-5">No items in cart</h1>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row shadow p-md-3 mt-md-3 ms-md-3 bg-body rounded">
+                <div class="d-none d-md-block">
+                    <h4>PRICE DETAILS</h4>
+                    <hr>
+                </div>
+                <div class="col-8 d-none d-md-block">
+                    <p>Price ({{no_of_items}} {% if no_of_items > 1 %} items {% else %} item {% endif%})</p>
+                    <p>Discount</p>
+                    <p>Delivery Charges</p>
+                    <hr>
+                    <h4>Total Amount</h4>
+                </div>
+                <div class="col-4 text-end d-none d-md-block">
+                    <p>₹{{total_marking_price | stringformat:'d'}}</p>
+                    <p class="text-danger">-₹{{discount | stringformat:'d'}}</p>
+                    <p class="text-decoration-line-through">₹40</p>
+                    <hr>
+                    <h4 class="text-success">₹{{total_amount | stringformat:'d'}}</h4>
+                </div>
+                <div class="place_order">
+
+                    {% if no_of_items %}
+                    <a href="{% url 'orders:cart_order' %}"><button class="btn btn-success p-2 fs-5  w-100">
+                            CHECKOUT <span class="d-md-none ps-3">₹ {{total_amount | stringformat:'d'}}</span>
+                        </button></a>
+                    {% else %}
+
+                    <a href="{% url 'home' %}"><button class="btn btn-warning w-100">BACK TO HOME</button></a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

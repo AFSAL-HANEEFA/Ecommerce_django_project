@@ -1,0 +1,84 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Category list {% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Category List</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Category Name </th>
+                                <th> trending </th>
+                                <th> offer</th>
+                                <th> Status </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in categorys %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'super_admin:category_details' category.id %}">
+                                        <img src="{{category.image.url}}" alt="image" />
+                                        <span class="pl-2 text-capitalize">{{category.category}}</span>
+                                    </a>
+                                </td>
+                                <td> {{category.trending}} </td>
+                                <td> {{category.offfer}} </td>
+                                <td>
+                                    {% if category.status %}
+                                    <div class="text-success">Show</div>
+                                    {% else %}
+                                    <div class="text-danger">Hidden</div>
+                                    {% endif %}
+                                </td>
+                                <td><a href="{% url 'super_admin:category_edit' category.id %}"><i
+                                            class="fa-solid fa-pen-to-square"></i></a></td>
+                                <td>
+
+                                    <!-- Button trigger modal -->
+                                    <div type="button" class="" data-bs-toggle="modal"
+                                        data-bs-target="#id{{category.id}}">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="id{{category.id}}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete category</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete the selected category?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <a href="{% url 'super_admin:category_delete' category.id %}"
+                                                        type="button" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

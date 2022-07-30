@@ -1,0 +1,158 @@
+{% extends 'user/base.html' %}
+{% block title %} Checkout {% endblock title %}
+{% block content %}
+
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-md-8  p-md-2">
+            <div class="row ">
+                <div class="accordion mt-3 address_load1" id="accordionExample">
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Delivery Addresses
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body ">
+                                <div class="p-3">
+                                    <strong id="address_name"> {{address.name}},</strong> <br>
+                                    {{address.address}},
+                                    {{address.state}}, <br>
+                                    {{address.pin}},
+                                    <strong id="address_mob">{{address.mob}}, </strong>
+                                </div>
+                                <div class="accordion mt-3" id="accordionExample1">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseOne1"
+                                                aria-expanded="true" aria-controls="collapseOne1">
+                                                Show more Addresses
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne1" class="accordion-collapse collapse"
+                                            aria-labelledby="headingOne" data-bs-parent="#accordionExample1">
+                                            <div class="accordion-body">
+                                                <div class="container load_address  ">
+
+                                                    <div class="d-flex flex-column align-items-center pt-lg-4">
+                                                        <div class="shadow p-lg-3 mb-lg-5 bg-body rounded w-100">
+
+                                                            {% include 'user/includes/address.html' %}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-3 mt-md-0">
+            <div class="row shadow p-md-3 mb-md-5 bg-body rounded">
+                <div class="p-3 row mb-5 mb-md-0">
+                    <h4>PRICE DETAILS</h4>
+                    <hr>
+                    <div class="col-8 ">
+                        <p>
+                            Price
+                            {% if no_of_items %}
+                            ({{no_of_items}} {% if no_of_items > 1 %} items {% else %} item {% endif%})
+                            {% elif qty %}
+                            ({{qty}} {% if qty > 1%} quantities {% else %} quantity {% endif %})
+                            {% endif %}
+                        </p>
+                        <p>Discount</p>
+
+                        {% if special_offer %}
+
+                        <p>
+                            Coupon Discount
+                        </p>
+
+                        {% endif %}
+
+                        <p>Delivery Charges</p>
+                        <hr>
+                        <h4>Total Amount</h4>
+                    </div>
+                    <div class="col-4 text-end ">
+                        <p>₹{{total_marking_price | stringformat:'d'}}</p>
+                        <p class="text-danger">-₹{{discount | stringformat:'d'}}</p>
+
+                        {% if special_offer %}
+
+                        <p class="text-danger">-₹{{special_offer | stringformat:'d'}}
+
+                            {% endif %}
+
+                        <p class="text-decoration-line-through">₹40</p>
+                        <hr>
+                        <h4 class="text-success" id="total_amount">₹{{total_amount | stringformat:'d'}}</h4>
+                    </div>
+
+                    {% csrf_token %}
+
+                    <div class="d-flex coupon_container">
+
+                        {% if remove_coupon %}
+
+                        <button class="remove_coupon btn btn-outline-danger" value="Redeem Coupon" name="" id="">Remove
+                            Coupon
+                        </button>
+
+                        {% else%}
+
+                        <input class="coupon_code_value form-control me-3" type="text" name="coupon_code_value"
+                            placeholder="Enter Coupon Code" id="">
+                        <div class="">
+                            <button class="apply_coupon btn btn-outline-primary">
+                                <span
+                                    class="spinner-border spinner-border-sm me-2 mb-1 fs-3 visually-hidden coupon_spinner"
+                                    role="status" aria-hidden="true"></span>
+                                Apply Coupon
+                            </button>
+                            <a href="" class="redeem_coupon btn btn-outline-success d-none" value="Redeem Coupon"
+                                name="" id="">Redeem Coupon
+                            </a>
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+                    <p class="coupon_status fw-bold text-center m-2"></p>
+                </div>
+                <form action="" method="post">
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="product" {% if product %} value="{{ product.id }}" {% endif %}>
+                    <input type="hidden" name="total_amount" value="{{ total_amount }}">
+                    <input type="hidden" name="qty" value="{{ qty }}">
+                    <input type="hidden" name="payment_id" value="" id="payment_id">
+                    <div class="payment_btn">
+                        <input type="submit" name="payment" value="CASH ON DELIVERY"
+                            class="btn btn-success py-2 w-100 payment_hidden" id="payment_mode"></input>
+                        <input type="submit" name="payment" value="RAZORPAY" id="rzp-button1"
+                            class="btn btn-warning py-2 w-100  mt-md-3"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% endblock scripts %}

@@ -1,0 +1,89 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Product list {% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Product List</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Product Name </th>
+                                <th> Category </th>
+                                <th> Selling Price </th>
+                                <th> Marking Price </th>
+                                <th> Qty</th>
+                                <th> Offer</th>
+                                <th> Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+
+                                <td>
+                                    <a href="{% url 'super_admin:product_details' product.id %}">
+                                        <img src="{{product.image1.url}}" alt="image" />
+                                        <span class="pl-2 text-capitalize">{{product.name}}</span>
+                                    </a>
+                                </td>
+                                <td> {{product.category}} </td>
+                                <td> {{product.selling_price}} </td>
+                                <td> {{product.marking_price}} </td>
+                                <td> {{product.qty}} </td>
+                                <td> {{product.offer}} </td>
+                                <td>
+                                    {% if product.status %}
+                                    <div class="text-success">Show</div>
+                                    {% else %}
+                                    <div class="text-danger">Hidden</div>
+                                    {% endif %}
+                                </td>
+                                <td><a href="{% url 'super_admin:product_edit' product.id %}"><i
+                                            class="fa-solid fa-pen-to-square"></i></a></td>
+                                <td>
+
+                                    <!-- Button trigger modal -->
+                                    <div type="button" class="" data-bs-toggle="modal"
+                                        data-bs-target="#id{{product.id}}">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="id{{product.id}}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete the selected product?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <a href="{% url 'super_admin:product_delete' product.id %}"
+                                                        type="button" class="btn btn-danger">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

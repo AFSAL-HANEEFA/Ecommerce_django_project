@@ -1,0 +1,88 @@
+{% extends 'super_admin/base.html' %}
+{% load static %}
+{% block title %} Admin request {% endblock title %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">order List</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Username </th>
+                                <th> Mobile </th>
+                                <th> Email </th>
+                                <th> Gender </th>
+                                <th> Last Login</th>
+                                <th> Admin Request</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for admin in admin %}
+                            <tr>
+                                <td>
+                                    <img src="{{admin.profile_pic.url}}" alt="image" />
+                                    <span class="pl-2 text-capitalize">{{admin.username}}</span>
+                                </td>
+                                <td> {{admin.mobile}} </td>
+                                <td> {{admin.email}} </td>
+                                <td class="text-capitalize"> {{admin.gender}} </td>
+                                <td> {{admin.last_login}} </td>
+                                <td>
+
+                                    <!-- Button trigger modal -->
+                                    <div type="button" class="text-capitalize text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#id{{admin.id}}">
+                                        Accept Request
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="id{{admin.id}}" tabindex="-1"
+                                        aria-labelledby="{{admin.id}}Label1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="admin_id" value="{{admin.id}}">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="{{admin.id}}Label">Admin Request
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="mt-2 text-primary fs-5">Once accepted they can access
+                                                            admin panel!</p>
+
+                                                        <input class="fs-5 d-none" type="checkbox" checked
+                                                            name="is_admin" id="id_is_admin">
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success">Accept
+                                                            Request</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

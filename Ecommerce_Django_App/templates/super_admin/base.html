@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin | {% block title %} {% endblock title %}</title>
+
+  <!-- ==============Bootstrap CSS==================== -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <!-- ==============fontAwesome kit's code================ -->
+
+  <script src="https://kit.fontawesome.com/27e48654a9.js" crossorigin="anonymous"></script>
+
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+  <!-- End layout styles -->
+
+  {% block css%}
+  {% endblock %}
+</head>
+
+<body class="">
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    {% include 'super_admin/includes/sidebar.html' %}
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_navbar.html -->
+      {% include 'super_admin/includes/navbar.html' %}
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          {% if messages %}
+          {% for msg in messages %}
+          <div class="alert {% if msg.tags %} alert-{{msg.tags}} {% endif %} alert-dismissible fade show" role="alert">
+            <strong class="text-center">{{msg}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+          {% endif %}
+
+          {% block content %}
+          {% endblock %}
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        {% include 'super_admin/includes/footer.html' %}
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <script src="{% static 'admin/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'admin/js/off-canvas.js' %}"></script>
+  <!-- <script src="{% static 'admin/js/misc.js' %}"></script> -->
+
+  <!-- ============ Bootstrap Bundle with Popper=========== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  {% block link %}
+  {% endblock %}
+
+  <script src="{% static 'admin/js/script.js' %}"></script>
+
+</body>
+
+</html>
